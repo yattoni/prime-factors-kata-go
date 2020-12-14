@@ -1,5 +1,9 @@
 package prime
 
+import (
+	"math"
+)
+
 /*
 Empty list
 */
@@ -175,6 +179,31 @@ func factorsOfN(n int) []int {
 		for ; n%divisor == 0; n = n / divisor {
 			factors = append(factors, divisor)
 		}
+	}
+	return factors
+}
+
+/*
+Termiante outer loop at square root of n.
+
+If we reach the end of the loops and no factors are found yet then the original number must be prime.
+
+Speeds up factorsOfN(2147483647) from 7 seconds to shorter than go test will show me 0.00s.
+
+Speeds up factorsOfN(67280421310721) from over 2 minutes to 0.05 seconds.
+*/
+func factorsOfNOptimizedForLargePrimes(n int) []int {
+	factors := make([]int, 0)
+	origN := n
+	// Surely there's a better way to do this
+	sqrtN := int(math.Ceil(math.Sqrt(float64(n))))
+	for divisor := 2; n > 1 && divisor <= sqrtN; divisor++ {
+		for ; n%divisor == 0; n = n / divisor {
+			factors = append(factors, divisor)
+		}
+	}
+	if len(factors) == 0 && origN != 1 {
+		factors = append(factors, origN)
 	}
 	return factors
 }

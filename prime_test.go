@@ -88,22 +88,35 @@ func TestFactorsOfN(t *testing.T) {
 	assert.Equal(t, []int{2, 2, 3, 3, 5, 7, 11, 11, 13}, factorsOfN(2*2*3*3*5*7*11*11*13), "Factors of 2 * 2 * 3 * 3 * 5 * 7 * 11 * 11 * 13")
 }
 
+func TestFactorsOfNOptimizedForLargePrimes(t *testing.T) {
+	assert.Equal(t, []int{}, factorsOfNOptimizedForLargePrimes(1), "Factors of 1")
+	assert.Equal(t, []int{2}, factorsOfNOptimizedForLargePrimes(2), "Factors of 2")
+	assert.Equal(t, []int{3}, factorsOfNOptimizedForLargePrimes(3), "Factors of 3")
+	assert.Equal(t, []int{2, 2}, factorsOfNOptimizedForLargePrimes(4), "Factors of 4")
+	assert.Equal(t, []int{5}, factorsOfNOptimizedForLargePrimes(5), "Factors of 5")
+	assert.Equal(t, []int{2, 3}, factorsOfNOptimizedForLargePrimes(6), "Factors of 6")
+	assert.Equal(t, []int{7}, factorsOfNOptimizedForLargePrimes(7), "Factors of 7")
+	assert.Equal(t, []int{2, 2, 2}, factorsOfNOptimizedForLargePrimes(8), "Factors of 8")
+	assert.Equal(t, []int{3, 3}, factorsOfNOptimizedForLargePrimes(9), "Factors of 9")
+	assert.Equal(t, []int{2, 2, 3, 3, 5, 7, 11, 11, 13}, factorsOfNOptimizedForLargePrimes(2*2*3*3*5*7*11*11*13), "Factors of 2 * 2 * 3 * 3 * 5 * 7 * 11 * 11 * 13")
+}
+
 /*
 https://en.wikipedia.org/wiki/2,147,483,647
 */
 func TestFactorsOfN_EighthMersennePrime(t *testing.T) {
-	t.Skip("Takes ~7 seconds")
-	assert.Equal(t, []int{2, 3, 3, 7, 11, 31, 151, 331}, factorsOfN(2147483647), "Factors of 2,147,483,647")
+	// t.Skip("Takes ~7 seconds")
+	assert.Equal(t, []int{2147483647}, factorsOfNOptimizedForLargePrimes(2147483647), "Factors of 2,147,483,647")
 }
 
 func TestFactorsOfN_EighthMersennePrimeMinusOne(t *testing.T) {
-	assert.Equal(t, []int{2, 3, 3, 7, 11, 31, 151, 331}, factorsOfN(2147483647-1), "Factors of 2,147,483,647")
+	assert.Equal(t, []int{2, 3, 3, 7, 11, 31, 151, 331}, factorsOfNOptimizedForLargePrimes(2147483647-1), "Factors of 2,147,483,647 - 1")
 }
 
 /*
 https://en.wikipedia.org/wiki/Largest_known_prime_number
 */
 func TestFactorsOfN_LargePrimeNumbers(t *testing.T) {
-	t.Skip("Takes at least 2 minutes")
-	assert.Equal(t, []int{67280421310721}, factorsOfN(67280421310721), "Factors of 67,280,421,310,721")
+	// t.Skip("Takes at least 2 minutes")
+	assert.Equal(t, []int{67280421310721}, factorsOfNOptimizedForLargePrimes(67280421310721), "Factors of 67,280,421,310,721")
 }
